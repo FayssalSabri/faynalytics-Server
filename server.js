@@ -14,6 +14,7 @@ app.use(express.json());
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const REDIRECT_URI = 'http://localhost:5000/google/callback'; // Must match your Google Cloud Console setting
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
 const oauth2Client = new google.auth.OAuth2(
     CLIENT_ID,
@@ -45,8 +46,8 @@ app.get('/google/callback', async (req, res) => {
         tokens.access_token = newTokens.access_token;
         tokens.refresh_token = newTokens.refresh_token;
 
-        // Redirect back to your frontend with a success message
-        res.redirect('http://localhost:5173/settings?status=success');
+        // La redirection pointe maintenant vers la variable d'environnement
+        res.redirect(`${FRONTEND_URL}/settings?status=success`);
 
     } catch (error) {
         console.error('Authentication failed:', error);
