@@ -132,7 +132,7 @@ app.get('/api/load-journal', isAuthenticated, async (req, res) => {
     }
 });
 
-// --- NOUVELLE ROUTE : Récupérer le profil utilisateur ---
+// --- Get user profile route ---
 app.get('/api/user-profile', isAuthenticated, async (req, res) => {
     try {
         oauth2Client.setCredentials(tokens);
@@ -145,6 +145,10 @@ app.get('/api/user-profile', isAuthenticated, async (req, res) => {
     }
 });
 
+// --- New root route ---
+app.get('/', (req, res) => {
+    res.send('Faynalytics Backend is running!');
+});
 
 app.listen(PORT, () => {
     console.log(`Backend server is running on http://localhost:${PORT}`);
